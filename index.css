@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+    text-align: center;
+}
+
+.section {
+    background-color: #DB6E2B;
+}
+.song {
+    background-color: #489799;
+}
+.asana {
+    background-color: #30d5d9;
+}
+
+.card {
+    border-style: inset;
+    border-radius: 10px;
+    border-color: white;
+    border-width: 1px;
+}
+body {
+    background-color: #405959;
+}
+h1 {
+    background-color: #405959;
+}
