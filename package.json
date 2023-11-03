@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node ./server.js"
   },
   "devDependencies": {
     "vite": "^4.4.5"
   },
   "dependencies": {
-    "sortablejs": "^1.15.0"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "sortablejs": "^1.15.0",
+    "vite-express": "^0.11.0"
   }
 }
