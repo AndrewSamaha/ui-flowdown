@@ -1,18 +1,12 @@
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
 import Sortable from 'sortablejs';
-import { setupCounter } from './lib/counter.js'
 import { sections } from './lib/sections';
 import { songs } from './lib/songs';
 import { asanas } from './lib/asanas';
 
-var sortableAsanasDiv = document.getElementById('sortable-asanas');
-var sortable = Sortable.create(sortableAsanasDiv);
-
-var sortableSongsDiv = document.getElementById('sortable-songs');
-var sortable2 = Sortable.create(sortableSongsDiv);
-
 const verticalScale = 2;
+
+Sortable.create(document.getElementById('sortable-asanas'));
+Sortable.create(document.getElementById('sortable-songs'));
 
 document.querySelector('#sortable-sections').innerHTML = sections.map((section) => {
     const min = Number(section.duration.split(":")[0]);
