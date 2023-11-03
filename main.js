@@ -1,10 +1,10 @@
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
 import Sortable from 'sortablejs';
-import { setupCounter } from './counter.js'
-import { sections } from './sections';
-import { songs } from './songs';
-import { asanas } from './asanas';
+import { setupCounter } from './lib/counter.js'
+import { sections } from './lib/sections';
+import { songs } from './lib/songs';
+import { asanas } from './lib/asanas';
 
 var sortableAsanasDiv = document.getElementById('sortable-asanas');
 var sortable = Sortable.create(sortableAsanasDiv);
