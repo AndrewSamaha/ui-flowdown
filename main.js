@@ -1,44 +1,81 @@
 import Sortable from 'sortablejs';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
 import { sections } from './lib/sections';
 import { songs } from './lib/songs';
 import { asanas } from './lib/asanas';
-
-const verticalScale = 2;
+import { AsanaCard, SongCard, SectionCard } from './lib/components/cards';
+import { verticalScale } from './lib/constants/scale';
 
 Sortable.create(document.getElementById('sortable-asanas'));
 Sortable.create(document.getElementById('sortable-songs'));
 
-document.querySelector('#sortable-sections').innerHTML = sections.map((section) => {
-    const min = Number(section.duration.split(":")[0]);
-    const sec = Number(section.duration.split(":")[1])/60;
-    const duration = min + sec;
-    const height = duration * verticalScale;
-    return `
-    <div class="section card" style="height: ${height}em;">
-        ${section.name} 
-    </div>`
-}).join(' ');
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+  // Provide required constructor fields
+  cache: cache,
+  uri: 'http://localhost:4000/',
+
+  // Provide some optional constructor fields
+  name: 'ui-flowdown',
+  version: '0.0.1',
+  queryDeduplication: false,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+    },
+  },
+});
+
+const processGetAllFlows = (result) => {
+    const { data: { getAllFlows } } = result;
+    console.log(getAllFlows)
+    if (getAllFlows.length <= 0) throw('received empty array from server')
+    showFlow(getAllFlows[0])
+}
+const showFlow = (flow) => {
+    console.log(flow)
+    const { name, asanas, sections, songs } = flow;
+    document.querySelector('#flow-name').innerHTML = name;
+    document.querySelector('#sortable-sections').innerHTML = sections.map(SectionCard).join(' ');
+    document.querySelector('#sortable-songs').innerHTML = songs.map(SongCard).join(' ');
+    document.querySelector('#sortable-asanas').innerHTML = asanas.map(AsanaCard).join(' ');
+}
+
+client
+  .query({
+    query: gql`
+      query GetAllFlows {
+        getAllFlows {
+            asanas {
+              duration
+              id
+              name
+              cue
+            }
+            name
+            sections {
+              duration
+              id
+              name
+            }
+            id
+            songs {
+              artist
+              duration
+              id
+              name
+            }
+          }
+      }
+    `,
+  })
+  .then(processGetAllFlows);
 
 
-document.querySelector('#sortable-songs').innerHTML = songs.map((song) => {
-    const min = Number(song.duration.split(":")[0]);
-    const sec = Number(song.duration.split(":")[1])/60;
-    const duration = min + sec;
-    const height = duration * verticalScale;
-    return `
-    <div class="song card" style="height: ${height}em;">
-        ${song.name} - ${song.artist} - ${song.duration}
-    </div>`
-}).join(' ');
+// document.querySelector('#sortable-sections').innerHTML = sections.map(SectionCard).join(' ');
 
-document.querySelector('#sortable-asanas').innerHTML = asanas.map((asana) => {
-    const min = Number(asana.duration.split(":")[0]);
-    const sec = Number(asana.duration.split(":")[1])/60;
-    const duration = min + sec;
-    const height = duration * verticalScale;
-    return `
-    <div class="asana card" style="height: ${height}em;">
-        ${asana.name} - ${asana.duration} ${asana.cue ? `<br>${asana.cue}` : ''} 
-    </div>`
-}).join(' ');
+// document.querySelector('#sortable-songs').innerHTML = songs.map(SongCard).join(' ');
+
+// document.querySelector('#sortable-asanas').innerHTML = asanas.map(AsanaCard).join(' ');
 
