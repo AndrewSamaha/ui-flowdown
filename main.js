@@ -72,10 +72,3 @@ client
   })
   .then(processGetAllFlows);
 
-
-// document.querySelector('#sortable-sections').innerHTML = sections.map(SectionCard).join(' ');
-
-// document.querySelector('#sortable-songs').innerHTML = songs.map(SongCard).join(' ');
-
-// document.querySelector('#sortable-asanas').innerHTML = asanas.map(AsanaCard).join(' ');
-
