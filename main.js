@@ -48,21 +48,30 @@ client
       query GetAllFlows {
         getAllFlows {
             asanas {
-              duration
+              duration {
+                float
+                string
+              }
               id
               name
               cue
             }
             name
             sections {
-              duration
+              duration {
+                float
+                string
+              }
               id
               name
             }
             id
             songs {
               artist
-              duration
+              duration {
+                float
+                string
+              }
               id
               name
             }
