@@ -51,7 +51,7 @@
 .tool:hover {
     background-color: #489799;
 }
-.tool-panel-spacer {
+.spacer {
     flex-grow: 2;
 }
 img {
