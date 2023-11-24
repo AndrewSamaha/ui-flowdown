@@ -51,6 +51,10 @@
 .tool:hover {
     background-color: #489799;
 }
+.tool.selected {
+    background-color: #DB6E2B;
+}
+
 .spacer {
     flex-grow: 2;
 }

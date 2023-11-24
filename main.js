@@ -1,7 +1,14 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client/core';
+import { ApolloClient, InMemoryCache, gql, makeVar } from '@apollo/client/core';
 import { Flow } from './lib/components/Pages/Flow';
 
 const cache = new InMemoryCache();
+export const typeDefs = gql`
+    extend type Query {
+        selectedTool: String
+    }
+`;
+
+export const selectedToolVar = makeVar("");
 
 const client = new ApolloClient({
   // Provide required constructor fields
@@ -19,12 +26,16 @@ const client = new ApolloClient({
   },
 });
 
-
 const processGetAllFlows = (result) => {
     const { data: { getAllFlows } } = result;
     console.log(getAllFlows)
     if (getAllFlows.length <= 0) throw('received empty array from server')
-    Flow({ flow: getAllFlows[1] }, { renderSelf: true});
+    Flow({ 
+      flow: getAllFlows[1],
+      selectedToolVar,
+      currentPage: Flow
+    }, { renderSelf: true});
+    console.log('done rendering flow')
 }
 
 client
