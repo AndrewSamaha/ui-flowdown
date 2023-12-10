@@ -12,7 +12,7 @@ export const SongCard = (props) => {
     const height = getHeight(props);
 
     return (
-    <div id={cardId} data-id={id} class="song card" style={`height: ${height}em;`} onClick={props.removeItem} >
+    <div id={cardId} data-id={id} class="song card" style={`height: ${height}em;`} onClick={props.action} >
         {props.name} - {props.artist} - {props.duration.string}
     </div>
     );
@@ -21,7 +21,7 @@ export const SongCard = (props) => {
 export const AsanaCard = (props) => {
     const height = getHeight(props);
     return (
-    <div class="asana card" data-id={props.id} style={`height: ${height}em;`} onClick={props.removeItem} >
+    <div class="asana card" data-id={props.id} style={`height: ${height}em;`} onClick={props.action} >
         {props.name} - {props.duration.string}
         {props.cue ? `<br>${props.cue}` : ''} 
     </div>
@@ -31,7 +31,7 @@ export const AsanaCard = (props) => {
 export const SectionCard = (props) => {
     const height = getHeight(props);
     return (
-    <div data-id={props.id} class="section card" style={`height: ${height}em;`} onClick={props.removeItem} >
+    <div data-id={props.id} class="section card" style={`height: ${height}em;`} onClick={props.action} >
         {props.name} 
     </div>
     );

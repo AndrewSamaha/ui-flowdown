@@ -36,10 +36,10 @@ export const FlowEditor = ({queryResult}) => {
             }
         });
     })
-    
-    const removeItemGenerator = (list, id, index) => (event) => {
+
+    const actionGenerator = (list, id, index, action) => (event) => {
         const listContents = flowStore[list];
-        console.log(`removing from ${list} id=${id} at index=${index}`)
+        console.log(`performing action ${action()} on ${list} id=${id} at index=${index}`)
         console.log(listContents)
     }
     
@@ -66,7 +66,9 @@ export const FlowEditor = ({queryResult}) => {
                     <h1>section</h1>
                     <div id="sortable-sections">
                         <For each={sections}>
-                            {(section, i) => <SectionCard {...section} removeItem={removeItemGenerator('sections', section.id, i())} ></SectionCard>}
+                            {(section, i) => <SectionCard 
+                                {...section}
+                                action={actionGenerator('sections', section.id, i(), currentTool)} ></SectionCard>}
                         </For>
                     </div>
                 </div>
@@ -74,7 +76,9 @@ export const FlowEditor = ({queryResult}) => {
                     <h1>asana</h1>
                     <div id="sortable-asanas">
                         <For each={asanas}>
-                            {(asana, i) => <AsanaCard {...asana} removeItem={removeItemGenerator('asanas', asana.id, i())} ></AsanaCard>}
+                            {(asana, i) => <AsanaCard
+                                {...asana}
+                                action={actionGenerator('asanas', asana.id, i(), currentTool)} ></AsanaCard>}
                         </For>
                     </div>
                 </div>
@@ -82,7 +86,9 @@ export const FlowEditor = ({queryResult}) => {
                     <h1>music</h1>
                     <div id="sortable-songs">
                         <For each={songs}>
-                            {(song, i) => <SongCard {...song} removeItem={removeItemGenerator('songs', song.id, i())} ></SongCard>}
+                            {(song, i) => <SongCard
+                                {...song}
+                                action={actionGenerator('songs', song.id, i(), currentTool)} ></SongCard>}
                         </For>
                     </div>
                 </div>
