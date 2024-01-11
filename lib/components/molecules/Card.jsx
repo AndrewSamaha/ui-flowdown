@@ -21,7 +21,11 @@ export const SongCard = (props) => {
 export const AsanaCard = (props) => {
     const height = getHeight(props);
     return (
-    <div class="asana card" data-id={props.id} style={`height: ${height}em;`} onClick={props.action} >
+    <div 
+        class="asana card"
+        data-id={props.id}
+        style={`height: ${height}em;`}
+        onClick={props.action} >
         {props.name} - {props.duration.string}
         {props.cue ? `<br>${props.cue}` : ''} 
     </div>
